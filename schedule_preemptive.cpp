@@ -1,5 +1,13 @@
 #include <iostream>
 
+double schedulable(int* ListC, int* ListTi, int len) {
+    double count = 0;
+    for (int i = 0; i < len; i++) {
+       count += 1.0 * ListC[i] / ListTi[i];
+    }
+    return count;
+}
+
 int GCD(int a, int b) {
     int a_ = a;
     int b_ = b;
@@ -149,8 +157,14 @@ int main(void) {
     int C[] = {2, 3, 2, 2, 2, 2, 3};
     int Ti[] = {10, 10, 20, 20, 40, 40, 80};
     const int len = 7;
-    const int lim = max(Ti, len);
-    int schedule[lim];
-    scheduler(schedule, C, Ti, len);
+    double count = schedulable(C, Ti, len);
+    if (count <= 1.0) {
+        std::cout << count << " ==> Schedulable" << std::endl;
+        const int lim = max(Ti, len);
+        int schedule[lim];
+        scheduler(schedule, C, Ti, len);
+    } else {
+        std::cout << count << " ==> Not schedulable" << std::endl;
+    }
     return 0;
 }
